@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bazaar KG - Онлайн Marketplace</title>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #2563EB;
+            --primary-hover: #1D4ED8;
+            --bg-color: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text-main: #111827;
+            --text-secondary: #64748B;
+            --border-color: #E2E8F0;
+            --danger: #EF4444;
+            --success: #10B981;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
+            --transition: all 0.25s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding-bottom: 40px;
+        }
+
+        .header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-search {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .header-search input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            background-color: var(--bg-color);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .header-search input:focus {
+            border-color: var(--primary);
+            background-color: var(--card-bg);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .header-search i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: var(--radius-lg);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--bg-color);
+            border-color: var(--text-secondary);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            opacity: 0.9;
+        }
+
+        .cart-icon-btn {
+            position: relative;
+            background: transparent;
+            border: none;
+            font-size: 1.3rem;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: var(--radius-full);
+            transition: var(--transition);
+        }
+
+        .cart-icon-btn:hover {
+            background-color: var(--bg-color);
+            color: var(--primary);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--danger);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: 40px 24px;
+            text-align: center;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-banner h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .hero-banner p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .hero-search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 8px;
+            background: white;
+            padding: 6px;
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-search-box input {
+            flex: 1;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            outline: none;
+            border-radius: var(--radius-full);
+            color: var(--text-main);
+        }
+
+        /* Categories Bar */
+        .categories-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .categories-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scrollbar-width: thin;
+        }
+
+        .category-chip {
+            padding: 8px 18px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .category-chip:hover, .category-chip.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .filter-sort-bar {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            margin-bottom: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .filters-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .price-filter {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .price-filter input {
+            width: 100px;
+            padding: 6px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .sort-group select {
+            padding: 8px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background-color: var(--card-bg);
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            .header-search {
+                display: none;
+            }
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-media {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #E2E8F0;
+        }
+
+        .card-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .card-location {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .card-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            background-color: var(--card-bg);
+            border-radius: var(--radius-lg);
+            border: 1px dashed var(--border-color);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.95);
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .close-btn:hover {
+            color: var(--text-main);
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .preview-box {
+            margin-top: 8px;
+            max-height: 180px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            display: none;
+        }
+
+        .preview-box img, .preview-box video {
+            width: 100%;
+            max-height: 180px;
+            object-fit: contain;
+            background-color: #000;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-price {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .cart-total {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .detail-media-container {
+            width: 100%;
+            max-height: 350px;
+            background-color: #000;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .detail-media-container img, .detail-media-container video {
+            max-width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background-color: var(--text-main);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-store"></i>
+                Bazaar KG
+            </a>
+            
+            <div class="header-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Товар издөө (мисалы: iPhone, куртка)..." oninput="searchProducts()">
+            </div>
+
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="openAddModal()">
+                    <i class="fa-solid fa-plus"></i>
+                    <span class="btn-text">Товар сатуу</span>
+                </button>
+                <button class="btn btn-outline" onclick="openAuthModal()">
+                    <i class="fa-regular fa-user"></i>
+                    <span>Кирүү</span>
+                </button>
+                <button class="cart-icon-btn" onclick="openCartModal()" title="Себет">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-banner">
+            <h1>Кыргызстандагы эң чоң онлайн базары</h1>
+            <p>Өз товарыңызды оңой сатыңыз же керектүү буюмдарды арзан сатып алыңыз</p>
+            <div class="hero-search-box">
+                <input type="text" id="heroSearchInput" placeholder="Издөө сөзүн жазыңыз..." onkeyup="if(event.key==='Enter') syncAndSearch()">
+                <button class="btn btn-primary" onclick="syncAndSearch()">
+                    <i class="fa-solid fa-magnifying-glass"></i> Издөө
+                </button>
+            </div>
+        </section>
+
+        <!-- Categories Navigation -->
+        <section class="categories-section">
+            <h2 class="section-title"><i class="fa-solid fa-list-ul"></i> Категориялар</h2>
+            <div class="categories-scroll" id="categoriesContainer">
+                <!-- Dynamic Category Chips -->
+            </div>
+        </section>
+
+        <!-- Filter & Sorting Controls -->
+        <section class="filter-sort-bar">
+            <div class="filters-group">
+                <div class="price-filter">
+                    <span>Баасы (сом):</span>
+                    <input type="number" id="minPrice" placeholder="Мин" oninput="filterProducts()">
+                    <span>-</span>
+                    <input type="number" id="maxPrice" placeholder="Макс" oninput="filterProducts()">
+                </div>
+            </div>
+
+            <div class="sort-group">
+                <select id="sortSelect" onchange="sortProducts()">
+                    <option value="newest">Жаңылары биринчи</option>
+                    <option value="price-asc">Баасы: Арзандан кымбатка</option>
+                    <option value="price-desc">Баасы: Кымбаттан арзанга</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Product Listing Grid -->
+        <section>
+            <h2 class="section-title"><i class="fa-solid fa-fire"></i> Бардык товарлар</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Dynamic product cards will load here -->
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="addProductModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Жаңы товар кошуу</h3>
+                <button class="close-btn" onclick="closeModal('addProductModal')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="addProductForm">
+                    <div class="form-group">
+                        <label class="form-label">Товардын аты *</label>
+                        <input type="text" id="prodTitle" class="form-control" placeholder="Мисалы: iPhone 15 Pro Max 256GB" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Баасы (сом) *</label>
+                            <input type="number" id="prodPrice" class="form-control" placeholder="1000" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Категория *</label>
+                            <select id="prodCategory" class="form-control" required>
+                                <!-- Categories populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Шаар / Жайгашкан жери *</label>
+                        <select id="prodCity" class="form-control" required>
+                            <option value="Бишкек">Бишкек</option>
+                            <option value="Ош">Ош</option>
+                            <option value="Жалал-Абад">Жалал-Абад</option>
+                            <option value="Каракол">Каракол</option>
+                            <option value="Нарын">Нарын</option>
+                            <option value="Талас">Талас</option>
+                            <option value="Баткен">Баткен</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Сүрөт файлы же Сүрөт шилтемеси (URL)</label>
+                        <input type="file" id="prodImageFile" accept="image/*" class="form-control" onchange="previewImage(event)">
+                        <input type="text" id="prodImageUrl" class="form-control" placeholder="Же сүрөт URL шилтемесин киргизиңиз" style="margin-top:6px;" oninput="previewImageUrl(this.value)">
+                        <div class="preview-box" id="imgPreviewBox"><img id="imgPreview" src="" alt="Preview"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Видео файл (кааласаңыз)</label>
+                        <input type="file" id="prodVideoFile" accept="video/*" class="form-control" onchange="previewVideo(event)">
+                        <div class="preview-box" id="videoPreviewBox"><video id="videoPreview" controls></video></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Толук сүрөттөмөсү *</label>
+                        <textarea id="prodDesc" class="form-control" rows="3" placeholder="Товар жөнүндө толук маалымат жазыңыз..." required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addProductModal')">Жокко чыгаруу</button>
+                <button class="btn btn-primary" onclick="handleAddProductSubmit()">Товарды жарыялоо</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="productDetailModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="detailModalTitle">Товар маалыматы</h3>
+                <button class="close-btn" onclick="closeModal('productDetailModal')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-media-container" id="detailMediaContainer">
+                    <!-- Dynamic Media -->
+                </div>
+                <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="background: var(--bg-color); padding: 4px 12px; border-radius: var(--radius-full); font-size: 0.85rem;" id="detailCategory">Категория</span>
+                    <span style="color: var(--text-secondary); font-size: 0.9rem;" id="detailCity"><i class="fa-solid fa-location-dot"></i> Шаар</span>
+                </div>
+                <h2 style="font-size: 1.4rem; margin-bottom: 8px;" id="detailName">Товар аты</h2>
+                <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 16px;" id="detailPrice">0 сом</div>
+                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;" id="detailDescription">Сүрөттөмө</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="detailAddToCartBtn">
+                    <i class="fa-solid fa-cart-plus"></i> Себетке кошуу
+                </button>
+                <button class="btn btn-primary" id="detailBuyNowBtn">
+                    <i class="fa-solid fa-bolt"></i> Сатып алуу
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fa-solid fa-cart-shopping"></i> Сиздин себетиңиз</h3>
+                <button class="close-btn" onclick="closeModal('cartModal')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" id="cartItemsContainer">
+                <!-- Cart items load dynamically -->
+            </div>
+            <div class="modal-footer" style="flex-direction: column; align-items: stretch;">
+                <div class="cart-total" id="cartTotalText">Жалпы сумма: 0 сом</div>
+                <div style="display: flex; gap: 10px; margin-top: 10px; justify-content: flex-end;">
+                    <button class="btn btn-outline" onclick="closeModal('cartModal')">Жабуу</button>
+                    <button class="btn btn-primary" onclick="proceedToCheckout()">Сатып алууга өтүү</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Заказды тариздөө</h3>
+                <button class="close-btn" onclick="closeModal('checkoutModal')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="checkoutForm">
+                    <div class="form-group">
+                        <label class="form-label">Аты-жөнүңүз *</label>
+                        <input type="text" id="custName" class="form-control" placeholder="Мисалы: Асан Усенов" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Телефон номериңиз *</label>
+                        <input type="tel" id="custPhone" class="form-control" placeholder="+996 555 123 456" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Жеткирүү дареги *</label>
+                        <input type="text" id="custAddress" class="form-control" placeholder="Мисалы: Бишкек ш., Манас проспектиси 10" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Төлөм ыкмасы</label>
+                        <select id="custPayment" class="form-control">
+                            <option value="cash">Накталай акча (алганда)</option>
+                            <option value="mbank">MBANK / Нак эмес төлөм</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('checkoutModal')">Артка</button>
+                <button class="btn btn-primary" onclick="handleCheckoutSubmit()">Заказды ырастоо</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Demo Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Системага кирүү</h3>
+                <button class="close-btn" onclick="closeModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Телефон же Email</label>
+                    <input type="text" class="form-control" placeholder="+996...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Пароль</label>
+                    <input type="password" class="form-control" placeholder="******">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" style="width:100%;" onclick="showNotification('Ийгиликтүү кирдиңиз!'); closeModal('authModal');">Кирүү</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Categories List
+        const CATEGORIES = [
+            'Бардыгы',
+            'Электроника',
+            'Кийим',
+            'Үй буюмдары',
+            'Авто',
+            'Телефон',
+            'Компьютер',
+            'Спорт',
+            'Балдар үчүн',
+            'Башка'
+        ];
+
+        // Initial Seed Demo Products
+        const initialProducts = [
+            {
+                id: '1',
+                title: 'iPhone 15 Pro Max 256GB',
+                price: 115000,
+                category: 'Телефон',
+                city: 'Бишкек',
+                image: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=600&q=80',
+                video: '',
+                description: 'Жаңы абалында, коробкасы жана бардык аксессуарлары бар. Батарея сапаты 100%.'
+            },
+            {
+                id: '2',
+                title: 'Samsung Galaxy S23 Ultra',
+                price: 85000,
+                category: 'Телефон',
+                city: 'Ош',
+                image: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=600&q=80',
+                video: '',
+                description: 'Эң сонун абалда, S-Pen калеми бар. Түсү кара.'
+            },
+            {
+                id: '3',
+                title: 'MacBook Pro 16" M2 Pro',
+                price: 180000,
+                category: 'Компьютер',
+                city: 'Бишкек',
+                image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80',
+                video: '',
+                description: 'Профессионалдуу иштер үчүн эң сонун ноутбук. 16GB RAM, 512GB SSD.'
+            },
+            {
+                id: '4',
+                title: 'Nike Air Max Спорттук бут кийим',
+                price: 5500,
+                category: 'Спорт',
+                city: 'Жалал-Абад',
+                image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',
+                video: '',
+                description: 'Оригинал кроссовки. Өлчөмү (Размер) 42. Абдан ыңгайлуу.'
+            },
+            {
+                id: '5',
+                title: 'Тоо велосипеди (Mountain Bike)',
+                price: 18500,
+                category: 'Спорт',
+                city: 'Каракол',
+                image: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=600&q=80',
+                video: '',
+                description: 'Shimano тетиктери менен. 24 ылдамдык (скорость). Жакшы абалда.'
+            },
+            {
+                id: '6',
+                title: 'Эркектердин кышкы курткасы',
+                price: 4200,
+                category: 'Кийим',
+                city: 'Нарын',
+                image: 'https://images.unsplash.com/photo-1544923246-77307dd654cb?auto=format&fit=crop&w=600&q=80',
+                video: '',
+                description: 'Абдан жылуу кышкы куртка. Өлчөмү L. Жаңы.'
+            }
+        ];
+
+        // Global State Variables
+        let products = [];
+        let cart = [];
+        let activeCategory = 'Бардыгы';
+        let currentUploadedImageBase64 = '';
+        let currentUploadedVideoBase64 = '';
+
+        function loadProducts() {
+            const stored = localStorage.getItem('bazaarkg_products');
+            if (stored) {
+                products = JSON.parse(stored);
+            } else {
+                products = initialProducts;
+                saveProducts();
+            }
+        }
+
+        function saveProducts() {
+            localStorage.setItem('bazaarkg_products', JSON.stringify(products));
+        }
+
+        function loadCart() {
+            const storedCart = localStorage.getItem('bazaarkg_cart');
+            if (storedCart) {
+                cart = JSON.parse(storedCart);
+            }
+            updateCartBadge();
+        }
+
+        function saveCart() {
+            localStorage.setItem('bazaarkg_cart', JSON.stringify(cart));
+            updateCartBadge();
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
+            const formSelect = document.getElementById('prodCategory');
+            
+            container.innerHTML = '';
+            formSelect.innerHTML = '';
+
+            CATEGORIES.forEach(cat => {
+                // Render category chip
+                const chip = document.createElement('button');
+                chip.className = `category-chip ${cat === activeCategory ? 'active' : ''}`;
+                chip.innerText = cat;
+                chip.onclick = () => filterByCategory(cat);
+                container.appendChild(chip);
+
+                // Render form dropdown (excluding 'Бардыгы')
+                if (cat !== 'Бардыгы') {
+                    const option = document.createElement('option');
+                    option.value = cat;
+                    option.innerText = cat;
+                    formSelect.appendChild(option);
+                }
+            });
+        }
+
+        function renderProducts(itemsToRender = products) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            if (itemsToRender.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-solid fa-box-open"></i>
+                        <h3>Тилекке каршы, товар табылган жок</h3>
+                        <p style="color:var(--text-secondary); margin-top:6px;">Башка издөө сөзүн же фильтрди колдонуп көрүңүз</p>
+                    </div>
+                `;
+                return;
+            }
+
+            itemsToRender.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                
+                card.innerHTML = `
+                    <img src="${prod.image || 'https://placehold.co/600x400/2563eb/ffffff?text=Bazaar+KG'}" alt="${prod.title}" class="card-media" onerror="this.src='https://placehold.co/600x400/2563eb/ffffff?text=Bazaar+KG'">
+                    <div class="card-body">
+                        <div class="card-title">${prod.title}</div>
+                        <div class="card-price">${prod.price.toLocaleString()} сом</div>
+                        <div class="card-location"><i class="fa-solid fa-location-dot"></i> ${prod.city} • ${prod.category}</div>
+                        <div class="card-desc">${prod.description}</div>
+                        <div class="card-actions">
+                            <button class="btn btn-outline" style="padding: 6px 10px; font-size: 0.85rem;" onclick="openProduct('${prod.id}')">
+                                <i class="fa-regular fa-eye"></i> Көрүү
+                            </button>
+                            <button class="btn btn-primary" style="padding: 6px 10px; font-size: 0.85rem;" onclick="addToCart('${prod.id}')">
+                                <i class="fa-solid fa-cart-plus"></i> Себетке
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterByCategory(cat) {
+            activeCategory = cat;
+            renderCategories();
+            filterProducts();
+        }
+
+        function searchProducts() {
+            filterProducts();
+        }
+
+        function syncAndSearch() {
+            const heroVal = document.getElementById('heroSearchInput').value;
+            document.getElementById('searchInput').value = heroVal;
+            filterProducts();
+        }
+
+        function filterProducts() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+            const minP = parseFloat(document.getElementById('minPrice').value) || 0;
+            const maxP = parseFloat(document.getElementById('maxPrice').value) || Infinity;
+
+            let filtered = products.filter(p => {
+                const matchesCategory = (activeCategory === 'Бардыгы') || (p.category === activeCategory);
+                const matchesSearch = p.title.toLowerCase().includes(searchQuery) || p.description.toLowerCase().includes(searchQuery);
+                const matchesPrice = p.price >= minP && p.price <= maxP;
+                return matchesCategory && matchesSearch && matchesPrice;
+            });
+
+            const sortVal = document.getElementById('sortSelect').value;
+            if (sortVal === 'price-asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortVal === 'price-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else {
+                filtered.sort((a, b) => b.id - a.id);
+            }
+
+            renderProducts(filtered);
+        }
+
+        function sortProducts() {
+            filterProducts();
+        }
+
+        function openProduct(id) {
+            const prod = products.find(p => p.id === id);
+            if (!prod) return;
+
+            document.getElementById('detailName').innerText = prod.title;
+            document.getElementById('detailPrice').innerText = `${prod.price.toLocaleString()} сом`;
+            document.getElementById('detailCategory').innerText = prod.category;
+            document.getElementById('detailCity').innerHTML = `<i class="fa-solid fa-location-dot"></i> ${prod.city}`;
+            document.getElementById('detailDescription').innerText = prod.description;
+
+            const mediaContainer = document.getElementById('detailMediaContainer');
+            if (prod.video) {
+                mediaContainer.innerHTML = `<video src="${prod.video}" controls style="width:100%; height:100%;"></video>`;
+            } else {
+                mediaContainer.innerHTML = `<img src="${prod.image}" alt="${prod.title}">`;
+            }
+
+            document.getElementById('detailAddToCartBtn').onclick = () => {
+                addToCart(prod.id);
+                closeModal('productDetailModal');
+            };
+
+            document.getElementById('detailBuyNowBtn').onclick = () => {
+                closeModal('productDetailModal');
+                addToCart(prod.id);
+                openCartModal();
+            };
+
+            openModal('productDetailModal');
+        }
+
+        function openAddModal() {
+            openModal('addProductModal');
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentUploadedImageBase64 = e.target.result;
+                    document.getElementById('imgPreview').src = e.target.result;
+                    document.getElementById('imgPreviewBox').style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function previewImageUrl(url) {
+            if (url.trim() !== '') {
+                currentUploadedImageBase64 = url;
+                document.getElementById('imgPreview').src = url;
+                document.getElementById('imgPreviewBox').style.display = 'block';
+            }
+        }
+
+        function previewVideo(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentUploadedVideoBase64 = e.target.result;
+                    document.getElementById('videoPreview').src = e.target.result;
+                    document.getElementById('videoPreviewBox').style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleAddProductSubmit() {
+            const title = document.getElementById('prodTitle').value.trim();
+            const price = parseFloat(document.getElementById('prodPrice').value);
+            const category = document.getElementById('prodCategory').value;
+            const city = document.getElementById('prodCity').value;
+            const desc = document.getElementById('prodDesc').value.trim();
+
+            if (!title || isNaN(price) || !desc) {
+                showNotification('Сураныч, бардык милдеттүү талааларды толтуруңуз!');
+                return;
+            }
+
+            const newProduct = {
+                id: Date.now().toString(),
+                title: title,
+                price: price,
+                category: category,
+                city: city,
+                image: currentUploadedImageBase64 || 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=80',
+                video: currentUploadedVideoBase64,
+                description: desc
+            };
+
+            products.unshift(newProduct);
+            saveProducts();
+            filterProducts();
+
+            // Reset form
+            document.getElementById('addProductForm').reset();
+            document.getElementById('imgPreviewBox').style.display = 'none';
+            document.getElementById('videoPreviewBox').style.display = 'none';
+            currentUploadedImageBase64 = '';
+            currentUploadedVideoBase64 = '';
+
+            closeModal('addProductModal');
+            showNotification('Товар ийгиликтүү жарыяланды!');
+        }
+
+        function addToCart(id) {
+            const prod = products.find(p => p.id === id);
+            if (!prod) return;
+
+            const cartItem = cart.find(item => item.id === id);
+            if (cartItem) {
+                cartItem.quantity += 1;
+            } else {
+                cart.push({ ...prod, quantity: 1 });
+            }
+
+            saveCart();
+            showNotification(`"${prod.title}" себетке кошулду`);
+        }
+
+        function updateCartBadge() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartBadge').innerText = count;
+        }
+
+        function openCartModal() {
+            renderCartItems();
+            openModal('cartModal');
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cartItemsContainer');
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align:center; padding: 20px; color:var(--text-secondary);">Себетиңиз азырынча бош</p>';
+                document.getElementById('cartTotalText').innerText = 'Жалпы сумма: 0 сом';
+                return;
+            }
+
+            let grandTotal = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                grandTotal += itemTotal;
+
+                const row = document.createElement('div');
+                row.className = 'cart-item';
+                row.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="cart-item-info">
+                        <div class="cart-item-title">${item.title}</div>
+                        <div class="cart-item-price">${item.price.toLocaleString()} сом</div>
+                    </div>
+                    <div class="quantity-controls">
+                        <button class="qty-btn" onclick="updateCartQty('${item.id}', -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="qty-btn" onclick="updateCartQty('${item.id}', 1)">+</button>
+                    </div>
+                    <button class="btn btn-danger" style="padding: 4px 8px; font-size:0.8rem;" onclick="removeFromCart('${item.id}')">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                `;
+                container.appendChild(row);
+            });
+
+            document.getElementById('cartTotalText').innerText = `Жалпы сумма: ${grandTotal.toLocaleString()} сом`;
+        }
+
+        function updateCartQty(id, change) {
+            const item = cart.find(i => i.id === id);
+            if (!item) return;
+
+            item.quantity += change;
+            if (item.quantity <= 0) {
+                removeFromCart(id);
+            } else {
+                saveCart();
+                renderCartItems();
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            saveCart();
+            renderCartItems();
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showNotification('Себетиңиз бош!');
+                return;
+            }
+            closeModal('cartModal');
+            openModal('checkoutModal');
+        }
+
+        function handleCheckoutSubmit() {
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+
+            if (!name || !phone || !address) {
+                showNotification('Сураныч, буйрутма маалыматтарын толук толтуруңуз!');
+                return;
+            }
+
+            cart = [];
+            saveCart();
+            closeModal('checkoutModal');
+            document.getElementById('checkoutForm').reset();
+            showNotification('Заказ ийгиликтүү кабыл алынды! Оператор сиз менен байланышат.');
+        }
+
+        function openAuthModal() {
+            openModal('authModal');
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function showNotification(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--success)"></i> ${message}`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        window.onload = function() {
+            loadProducts();
+            loadCart();
+            renderCategories();
+            renderProducts();
+        };
+    </script>
+</body>
+</html>
